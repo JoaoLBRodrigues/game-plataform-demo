@@ -1,7 +1,7 @@
 import { apiKey } from "../assets/ApiKey";
 import axios from "axios";
 
-export const instance = axios.create({
+export default axios.create({
 	baseURL: "https://api.rawg.io/api",
 	params: {
 		key: apiKey,
