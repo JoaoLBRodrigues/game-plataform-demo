@@ -1,18 +1,30 @@
-import * as React from "react";
-
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import CardActions from "@mui/material/CardActions";
-import IconButton from "@mui/material/IconButton";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import ShareIcon from "@mui/icons-material/Share";
+import { Platforms } from "./PlataformIcons";
+import { Box } from "@mui/material";
+import { resizeImage } from "../utils/resizeImage";
 
-export interface Props {
+export interface Platform {
+	id: number;
 	name: string;
-	background_image: string;
+	slug: string;
 }
-export default function GameCard({ name, background_image }: Props) {
+export interface Props {
+	name?: string;
+	background_image: string;
+	parent_platforms: [{ platform: Platform }];
+	metacritic: number;
+}
+
+export default function GameCard({
+	name,
+	background_image,
+	parent_platforms,
+	metacritic,
+}: Props) {
+	const platforms = parent_platforms.map((item) => item.platform);
 	return (
 		<Card>
 			<CardHeader
@@ -29,17 +41,23 @@ export default function GameCard({ name, background_image }: Props) {
 			<CardMedia
 				component="img"
 				height="300"
-				image={background_image}
+				image={resizeImage(background_image)}
 				alt="Paella dish"
 			/>
 
 			<CardActions disableSpacing>
-				<IconButton aria-label="add to favorites">
-					<FavoriteIcon />
-				</IconButton>
-				<IconButton aria-label="share">
-					<ShareIcon />
-				</IconButton>
+				<Platforms platforms={platforms} />
+				<Box
+					justifyContent="end"
+					display="flex"
+					sx={{
+						backgroundColor: "lightblue",
+						padding: "5px",
+						borderRadius: "8px",
+					}}
+				>
+					{metacritic}
+				</Box>
 			</CardActions>
 		</Card>
 	);

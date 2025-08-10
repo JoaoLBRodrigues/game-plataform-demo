@@ -13,6 +13,8 @@ export default function GameList() {
 						key={index}
 						name={item.name}
 						background_image={item.background_image}
+						parent_platforms={item.parent_platforms}
+						metacritic={item.metacritic}
 					/>
 				</Grid>
 			))}
