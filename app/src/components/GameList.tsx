@@ -2,9 +2,14 @@ import { Box, CircularProgress, Grid, Typography } from "@mui/material";
 import GameCard, { type Props } from "./GameCard";
 import { useGames } from "../hooks/useGames";
 import GenreLIst from "./GenreLIst";
+import { useEffect, useState } from "react";
+import { type IGenre } from "../hooks/UseGenre";
 
 export default function GameList() {
-	const { error, data, isLoading } = useGames();
+	const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
+	const { error, data, isLoading } = useGames(selectedGenre);
+
+	useEffect(() => {}, []);
 	return (
 		<>
 			{isLoading ? (
@@ -22,7 +27,10 @@ export default function GameList() {
 				<Grid container size={12} my={5}>
 					<Typography color="red">{error}</Typography>
 					<Grid size={{ md: 1, xs: 12 }}>
-						<GenreLIst />
+						<GenreLIst
+							selected={selectedGenre}
+							selectedGenre={(genre) => setSelectedGenre(genre)}
+						/>
 					</Grid>
 					<Grid
 						size={{ xs: 12, md: 11 }}
