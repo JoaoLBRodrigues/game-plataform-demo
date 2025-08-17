@@ -1,32 +1,16 @@
-import apiClient from "../services/api-client";
-import type { Props } from "../components/GameCard";
-import { useEffect, useState } from "react";
-import { CanceledError } from "axios";
+import { UseData } from "./UseData";
 
-interface FetchGamesResponse {
-	count: number;
-	results: Props[];
+export interface Platform {
+	id: number;
+	name: string;
+	slug: string;
 }
 
-export const useGames = () => {
-	const [data, setData] = useState<Props[]>([]);
-	const [error, setError] = useState();
+export interface IGames {
+	name?: string;
+	background_image: string;
+	parent_platforms: [{ platform: Platform }];
+	metacritic: number;
+}
 
-	useEffect(() => {
-		const controller = new AbortController();
-		apiClient
-			.get<FetchGamesResponse>("games", { signal: controller.signal })
-			.then((response) => {
-				setData(response.data.results);
-				console.log(response.data.results);
-			})
-			.catch((err) => {
-				if (err instanceof CanceledError) return;
-				setError(err.message);
-			});
-
-		return () => controller.abort();
-	}, []);
-
-	return { error, data };
-};
+export const useGames = () => UseData<IGames>("/games");
