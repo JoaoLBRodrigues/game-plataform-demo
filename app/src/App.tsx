@@ -1,7 +1,7 @@
-import Home from "./pages/Home";
+import GameList from "./components/GameList";
 
 function App() {
-	return <Home />;
+	return <GameList />;
 }
 
 export default App;

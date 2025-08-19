@@ -5,26 +5,13 @@ import CardActions from "@mui/material/CardActions";
 import { Platforms } from "./PlataformIcons";
 import { Box } from "@mui/material";
 import { resizeImage } from "../utils/resizeImage";
+import type { Game } from "../hooks/useGames";
 
-export interface Platform {
-	id: number;
-	name: string;
-	slug: string;
-}
-export interface Props {
-	name?: string;
-	background_image: string;
-	parent_platforms: [{ platform: Platform }];
-	metacritic: number;
+interface Props {
+	game: Game;
 }
 
-export default function GameCard({
-	name,
-	background_image,
-	parent_platforms,
-	metacritic,
-}: Props) {
-	const platforms = parent_platforms.map((item) => item.platform);
+export default function GameCard({ game }: Props) {
 	return (
 		<Card>
 			<CardHeader
@@ -35,18 +22,18 @@ export default function GameCard({
 					</IconButton>
 				}
                     */
-				title={name}
+				title={game.name}
 				//subheader="September 14, 2016"
 			/>
 			<CardMedia
 				component="img"
 				height="300"
-				image={resizeImage(background_image)}
+				image={resizeImage(game.background_image)}
 				alt="Paella dish"
 			/>
 
 			<CardActions disableSpacing>
-				<Platforms platforms={platforms} />
+				<Platforms platforms={game.parent_platforms} />
 				<Box
 					justifyContent="end"
 					display="flex"
@@ -56,7 +43,7 @@ export default function GameCard({
 						borderRadius: "8px",
 					}}
 				>
-					{metacritic}
+					{game.metacritic}
 				</Box>
 			</CardActions>
 		</Card>

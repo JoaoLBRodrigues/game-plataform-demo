@@ -10,7 +10,7 @@ interface IFetchResponse<T> {
 export const UseData = <T>(
 	endpoint: string,
 	requestConfig?: AxiosRequestConfig,
-	deps?: any[]
+	deps?: unknown[]
 ) => {
 	const [data, setData] = useState<T[]>([]);
 	const [error, setError] = useState();
@@ -37,8 +37,8 @@ export const UseData = <T>(
 
 			return () => controller.abort();
 		},
-		deps ? [...deps] : [endpoint]
+		deps ? [...deps] : []
 	);
 
-	return { error, data, isLoading };
+	return { error, data, isLoading, setData };
 };

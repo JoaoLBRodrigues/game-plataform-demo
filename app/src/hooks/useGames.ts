@@ -1,3 +1,4 @@
+//import type { GameQuery } from "../components/GameList";
 import { UseData } from "./UseData";
 import type { IGenre } from "./UseGenre";
 
@@ -7,15 +8,27 @@ export interface Platform {
 	slug: string;
 }
 
-export interface IGames {
-	name?: string;
+export interface Game {
+	id: number;
+	name: string;
 	background_image: string;
-	parent_platforms: [{ platform: Platform }];
+	parent_platforms: { platform: Platform }[];
 	metacritic: number;
-	genres?: IGenre[];
+	rating_top: number;
 }
 
-export const useGames = (selectedGenre: IGenre | null) =>
-	UseData<IGames>("/games", { params: { genres: selectedGenre?.id } }, [
-		selectedGenre?.id,
-	]);
+const useGames = (selectedGenre: IGenre | null) =>
+	UseData<Game>(
+		"/games",
+		{
+			params: {
+				genres: selectedGenre?.id,
+				//platforms: gameQuery.platform?.id,
+				//ordering: gameQuery.sortOrder,
+				//search: gameQuery.searchText,
+			},
+		},
+		[selectedGenre]
+	);
+
+export default useGames;
