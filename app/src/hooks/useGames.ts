@@ -1,6 +1,7 @@
 //import type { GameQuery } from "../components/GameList";
 import { UseData } from "./UseData";
 import type { IGenre } from "./UseGenre";
+import type { plataform } from "./usePlatforms";
 
 export interface Platform {
 	id: number;
@@ -17,18 +18,21 @@ export interface Game {
 	rating_top: number;
 }
 
-const useGames = (selectedGenre: IGenre | null) =>
+const useGames = (
+	selectedGenre: IGenre | null,
+	selectedPlatform: plataform | null
+) =>
 	UseData<Game>(
 		"/games",
 		{
 			params: {
 				genres: selectedGenre?.id,
-				//platforms: gameQuery.platform?.id,
+				platforms: selectedPlatform?.id,
 				//ordering: gameQuery.sortOrder,
 				//search: gameQuery.searchText,
 			},
 		},
-		[selectedGenre]
+		[selectedGenre, selectedPlatform]
 	);
 
 export default useGames;

@@ -16,12 +16,14 @@ export interface GameQuery {
 export default function GameList() {
 	//const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 	const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
-	//const [selectedPlatform, setSelectedGenre] = useState<IGenre | null>(null);
+	const [platformSelected, setSelectedPlatform] = useState<Platform | null>(
+		null
+	);
 
 	const { data, error } = UsePlataforrms();
 
 	if (error) return;
-	console.log("platafor" + JSON.stringify(data));
+
 	return (
 		<>
 			<Grid container justifyContent="center" mt={2} spacing={2}>
@@ -33,13 +35,23 @@ export default function GameList() {
 				>
 					{/**Plataform */}
 					<FormControl fullWidth>
-						<Select id="demo-simple-select">
+						<Select
+							value={platformSelected?.name || ""}
+							onChange={(e) => {
+								const selected = data.find(
+									(p) => p.name === e.target.value
+								);
+								setSelectedPlatform(selected || null);
+							}}
+							displayEmpty
+						>
 							<MenuItem value="" disabled>
-								Select an platform
+								Selecione uma plataforma
 							</MenuItem>
-
 							{data.map((p) => (
-								<MenuItem value={10}>{p.name}</MenuItem>
+								<MenuItem key={p.name} value={p.name}>
+									{p.name}
+								</MenuItem>
 							))}
 						</Select>
 					</FormControl>
@@ -77,7 +89,10 @@ export default function GameList() {
 					}}
 				>
 					<Grid container spacing={1} size={10}>
-						<GridGames selectedGenre={selectedGenre} />
+						<GridGames
+							selectedPlatform={platformSelected}
+							selectedGenre={selectedGenre}
+						/>
 					</Grid>
 				</Grid>
 			</Grid>

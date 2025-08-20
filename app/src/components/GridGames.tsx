@@ -2,16 +2,17 @@ import { Box, CircularProgress, Grid } from "@mui/material";
 import GameCard from "./GameCard";
 import { useEffect } from "react";
 //import type { GameQuery } from "./GameList";
-import useGames from "../hooks/useGames";
+import useGames, { type Platform } from "../hooks/useGames";
 import type { IGenre } from "@/hooks/UseGenre";
 
 interface Props {
 	//gameQuery: GameQuery;
 	selectedGenre: IGenre | null;
+	selectedPlatform: Platform | null;
 }
 
-export default function GridGames({ selectedGenre }: Props) {
-	const { data, isLoading } = useGames(selectedGenre);
+export default function GridGames({ selectedGenre, selectedPlatform }: Props) {
+	const { data, isLoading } = useGames(selectedGenre, selectedPlatform);
 
 	useEffect(() => {}, []);
 	return (
