@@ -9,7 +9,7 @@ import {
 import { GiConsoleController } from "react-icons/gi";
 import { Box, Icon } from "@mui/material";
 import type { IconType } from "react-icons";
-import type { Platform } from "./GameCard";
+import type { Platform } from "../hooks/useGames";
 
 interface Props {
 	platforms: Platform[];

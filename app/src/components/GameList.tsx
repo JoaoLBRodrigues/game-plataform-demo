@@ -4,6 +4,7 @@ import { type IGenre } from "../hooks/UseGenre";
 import GridGames from "./GridGames";
 import { FormControl, Grid, MenuItem, Select } from "@mui/material";
 import GenreLIst from "./GenreLIst";
+import UsePlataforrms from "../hooks/usePlatforms";
 
 export interface GameQuery {
 	genre: IGenre | null;
@@ -15,16 +16,42 @@ export interface GameQuery {
 export default function GameList() {
 	//const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 	const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
+	//const [selectedPlatform, setSelectedGenre] = useState<IGenre | null>(null);
 
+	const { data, error } = UsePlataforrms();
+
+	if (error) return;
+	console.log("platafor" + JSON.stringify(data));
 	return (
 		<>
-			<Grid container size={12} justifyContent="center" mt={2}>
+			<Grid container justifyContent="center" mt={2} spacing={2}>
 				<Grid
-					size={8}
+					size={3}
 					display="flex"
-					justifyContent="center"
-					textAlign="center"
+					justifyContent="start"
+					textAlign="start"
 				>
+					{/**Plataform */}
+					<FormControl fullWidth>
+						<Select id="demo-simple-select">
+							<MenuItem value="" disabled>
+								Select an platform
+							</MenuItem>
+
+							{data.map((p) => (
+								<MenuItem value={10}>{p.name}</MenuItem>
+							))}
+						</Select>
+					</FormControl>
+				</Grid>
+
+				<Grid
+					size={3}
+					display="flex"
+					justifyContent="start"
+					textAlign="start"
+				>
+					{/**Plataform */}
 					<FormControl fullWidth>
 						<Select id="demo-simple-select">
 							<MenuItem value={10}>Relevant</MenuItem>
