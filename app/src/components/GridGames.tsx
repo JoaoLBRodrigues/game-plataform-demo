@@ -4,15 +4,16 @@ import { useEffect } from "react";
 //import type { GameQuery } from "./GameList";
 import useGames, { type Platform } from "../hooks/useGames";
 import type { IGenre } from "@/hooks/UseGenre";
+import type { GameQuery } from "./GameList";
 
 interface Props {
-	//gameQuery: GameQuery;
-	selectedGenre: IGenre | null;
-	selectedPlatform: Platform | null;
+	gameQuery: GameQuery;
+	selectedGenre?: IGenre | null;
+	selectedPlatform?: Platform | null;
 }
 
-export default function GridGames({ selectedGenre, selectedPlatform }: Props) {
-	const { data, isLoading } = useGames(selectedGenre, selectedPlatform);
+export default function GridGames({ gameQuery }: Props) {
+	const { data, isLoading } = useGames(gameQuery);
 
 	useEffect(() => {}, []);
 	return (
@@ -31,7 +32,7 @@ export default function GridGames({ selectedGenre, selectedPlatform }: Props) {
 			) : (
 				<>
 					<Grid container spacing={1} size={10}>
-						{data.map((game) => (
+						{data?.results.map((game) => (
 							<Grid size={{ xs: 12, md: 3 }} key={game.id}>
 								<GameCard game={game} />
 							</Grid>

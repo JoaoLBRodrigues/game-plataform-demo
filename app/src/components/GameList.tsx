@@ -4,7 +4,8 @@ import { type IGenre } from "../hooks/UseGenre";
 import GridGames from "./GridGames";
 import { FormControl, Grid, MenuItem, Select } from "@mui/material";
 import GenreLIst from "./GenreLIst";
-import UsePlataforrms from "../hooks/usePlatforms";
+import UsePlataforrms from "../hooks/UsePlatforms";
+
 
 export interface GameQuery {
 	genre: IGenre | null;
@@ -14,7 +15,7 @@ export interface GameQuery {
 }
 
 export default function GameList() {
-	//const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
+	const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 	const [selectedGenre, setSelectedGenre] = useState<IGenre | null>(null);
 	const [platformSelected, setSelectedPlatform] = useState<Platform | null>(
 		null
@@ -38,7 +39,7 @@ export default function GameList() {
 						<Select
 							value={platformSelected?.name || ""}
 							onChange={(e) => {
-								const selected = data.find(
+								const selected = data?.results.find(
 									(p) => p.name === e.target.value
 								);
 								setSelectedPlatform(selected || null);
@@ -48,7 +49,7 @@ export default function GameList() {
 							<MenuItem value="" disabled>
 								Selecione uma plataforma
 							</MenuItem>
-							{data.map((p) => (
+							{data?.results.map((p) => (
 								<MenuItem key={p.name} value={p.name}>
 									{p.name}
 								</MenuItem>
@@ -90,8 +91,7 @@ export default function GameList() {
 				>
 					<Grid container spacing={1} size={10}>
 						<GridGames
-							selectedPlatform={platformSelected}
-							selectedGenre={selectedGenre}
+							gameQuery={gameQuery}
 						/>
 					</Grid>
 				</Grid>

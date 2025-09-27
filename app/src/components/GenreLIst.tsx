@@ -12,7 +12,7 @@ export default function GenreLIst({ selected, setSelectedGenre }: Props) {
 	console.log(selected);
 	return (
 		<>
-			{data.map((item) => (
+			{data?.results.map((item) => (
 				<ListItemButton
 					key={item.id}
 					component="a"

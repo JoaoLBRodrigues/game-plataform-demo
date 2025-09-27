@@ -11,11 +11,8 @@ import { Box, Icon } from "@mui/material";
 import type { IconType } from "react-icons";
 import type { Platform } from "../hooks/useGames";
 
-interface Props {
-	platforms: Platform[];
-}
 
-export const Platforms = ({ platforms }: Props) => {
+export const Platforms = ( platforms: Platform[]) => {
 	const iconMap: { [key: string]: IconType } = {
 		computer: FaLaptop,
 		playstation: FaPlaystation,
